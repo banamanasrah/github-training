@@ -1,0 +1,14 @@
+# Java / Spring Boot
+target/
+*.class
+
+# Node.js / React
+node_modules/
+dist/
+
+# IDE files
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
