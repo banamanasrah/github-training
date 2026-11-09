@@ -1,13 +1,11 @@
-import Hello from './Hello'
-
+import Hello from './Hello';
+ 
 function App() {
-
-
   return (
     <>
-    <Hello></Hello>
+    <Hello />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
