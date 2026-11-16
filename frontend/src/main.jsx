@@ -10,3 +10,10 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+/*StrictMode is a development-only tool, but it doesn't mean that the 
+whole 
+application is running in development mode.*/ 
+//StrictMode → helps detect potential problems.
+
+/*StrictMode → helps detect potential problems.
+npm run dev → runs our Vite application in development mode.*/ 
