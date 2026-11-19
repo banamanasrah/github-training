@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 public class JwtService {
 
     @Value("${application.security.jwt.secret-key}")
-    private String SECRET_KEY;//"I-8S8I7uqJpk6zGoB2-ZENyFFGZMDaxoshzTRtq4dG0";
+    private String SECRET_KEY;
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(userDetails, new HashMap<>());// the idea here is that we just pass this HashMap
