@@ -18,14 +18,15 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfiguration {
 
     private final AuthenticationProvider authenticationProvider;
-    private final jwtAuthenticationFilter jwtAuthFilter;
+    private final JwtAuthenticationFilter_ jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> {})
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
