@@ -1,23 +1,56 @@
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import AuthLayout from "../components/auth/AuthLayout";
 import FormInput from "../components/auth/FormInput";
 import Button from "../components/ui/Button";
+import { AuthContext } from "../context/AuthContext";
 
 function RegisterPage() {
-  const [name, setName] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  function handleSubmit(e) {
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+
+  const { registerUser } = useContext(AuthContext);
+
+  async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
+    setError("");
+    setSuccess("");
+
+    // Check whether both passwords match.
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      await registerUser({
+        firstname,
+        lastname,
+        email,
+        password
+      });
+
+      setSuccess("Account created successfully!");
+    } catch (error) {
+      setError(
+        error.response?.data?.message ||
+        "Registration failed. Please try again."
+      );
+
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -30,11 +63,19 @@ function RegisterPage() {
         </p>
 
         <form className="auth-form" onSubmit={handleSubmit}>
+
           <FormInput
-            label="Full Name"
+            label="First Name"
             type="text"
-            value={name}
-            onChange={setName}
+            value={firstname}
+            onChange={setFirstname}
+          />
+
+          <FormInput
+            label="Last Name"
+            type="text"
+            value={lastname}
+            onChange={setLastname}
           />
 
           <FormInput
@@ -58,9 +99,14 @@ function RegisterPage() {
             onChange={setConfirmPassword}
           />
 
-          <Button type="submit">
-            Create Account
+          {error && <p role="alert">{error}</p>}
+
+          {success && <p role="status">{success}</p>}
+
+          <Button type="submit" disable={isLoading}>
+            {isLoading ? "Creating account..." : "Create Account"}
           </Button>
+
         </form>
 
         <p className="auth-footer">

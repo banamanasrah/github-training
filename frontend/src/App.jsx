@@ -27,7 +27,7 @@ export default App;
 
 
 //VERY important bana!!!!! //
-/*You're almost completely correct! Just one small clarification: 
+/*
 we don't manually call LoginPage and RegisterPage inside App as ordinary 
 function calls. 
 React Router renders them when their URL matches.
